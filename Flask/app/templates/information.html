@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% if ip%}
+<h2>La ip de l'usuari es: {{ip}}</h2>
+
+{% else %}
+<a href="{{url_for('index')}}">Crear cookie</a>
+
+{% endif %}
+
+<ul>
+    {%for item in items%}
+    <li>{{item}}</li>
+    {%endfor%}
+</ul>
+
+{% block title %}
+{{super()}}
+Interesant
+{% endblock %}
+
+{% block content %}
+    Hola que tal
+    <div>
+        <div>
+            {{ login_form.hidden_tag() }}
+            {{ login_form.csrf_token }}
+            {{ login_form.username.label }} {{ login_form.username }}
+            {{ login_form.password.label }} {{ login_form.password }}
+            {{ login_form.submit }}
+        </div>
+    </div>
+{% endblock %}
