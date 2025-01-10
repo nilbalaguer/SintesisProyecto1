@@ -12,7 +12,7 @@ main_bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
-@main_bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -31,3 +31,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('auth.login'))
 
+@main_bp.route('/reservas')
+@login_required
+def reservas():
+    return render_template('reservas.html')

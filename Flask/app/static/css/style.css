@@ -1,0 +1,55 @@
+:root {
+    --background_menus: #D9D9D9;
+}
+
+* {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    background-color: var(--background_menus);
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+#mainmenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-right: 40px;
+}
+
+#mainmenu div {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    padding: 20px;
+}
+
+#imagelogo {
+    width: 110px;
+}
+
+footer {
+    background-color: var(--background_menus);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/*Pagina Login*/
+#fondologin {
+    background-image: url("../images/fondo1.webp");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+}
+
+#divlogin {
+    background-color: var(--background_menus);
+    padding: 40px;
+}
