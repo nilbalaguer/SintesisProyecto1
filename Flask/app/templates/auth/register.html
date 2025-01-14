@@ -3,13 +3,18 @@
 {% block content %}
 <div class="container" id="fondologin">
     <div id="divlogin">
-        <h1>Iniciar sesión</h1>
+        <h1>Registre</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.email.label(class="form-label") }}
                 <br>
                 {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.username.label(class="form-label") }}
+                <br>
+                {{ form.username(class="form-control") }}
             </div>
             <div class="form-group">
                 {{ form.password.label(class="form-label") }}
@@ -19,8 +24,8 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-primary boton-1") }}
             </div>
+            <a href="{{ url_for('auth.login') }}">Ja tens conta? Inicia sessio!</a>
         </form>
-        <a href="{{ url_for('auth.register') }}">No tens conta? Registrat!</a>
     </div>
 </div>
 {% endblock %}

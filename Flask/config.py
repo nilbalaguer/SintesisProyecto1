@@ -1,4 +1,4 @@
 class Config:
-    SECRET_KEY = 'your_secret_key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+    SECRET_KEY = 'popes'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@127.0.0.1/parking'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

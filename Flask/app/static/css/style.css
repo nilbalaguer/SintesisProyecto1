@@ -1,5 +1,7 @@
 :root {
     --background_menus: #D9D9D9;
+    --button_color1: #32CD32;
+    --button_color2: #28A745;
 }
 
 * {
@@ -39,17 +41,153 @@ footer {
     justify-content: center;
 }
 
+.boton-1 {
+    transition: 300ms;
+    border-radius: 30px;
+    background-color: var(--button_color1);
+    border: none;
+    padding: 20px;
+    width: 100%;
+}
+
+.boton-1:hover {
+    transition: 300ms;
+    background-color: var(--button_color2);
+}
+
+
 /*Pagina Login*/
+
 #fondologin {
-    background-image: url("../images/fondo1.webp");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondo1.webp");
     background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 100vh;
 }
 
 #divlogin {
     background-color: var(--background_menus);
+    border-radius: 40px;
     padding: 40px;
+    text-align: center;
 }
+
+#divlogin input {
+    border: none;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+#divlogin div {
+    margin: 20px;
+}
+
+
+/*Pagina Parking*/
+
+#fondoParking {
+    width: 100%;
+}
+
+.parkings {
+    margin: 10px;
+    border: 1px solid gray;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.PNG");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.parking1parent, .parking2parent {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.parking1parent div, .parking2parent div {
+    transition: 400ms;
+    border: 2px solid red;
+    width: 50px;
+    height: 80px;
+    margin: 2px;
+    cursor:pointer;
+    border-radius: 30px;
+    padding: 5px;
+    text-align: center;
+}
+
+.parking1parent div:hover , .parking2parent div:hover {
+    transition: 400ms;
+    background-color: black;
+    color: white;
+}
+
+/*Parking 1*/
+.parking1parent {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 2 / 2 / 3; }
+.div3 { grid-area: 1 / 3 / 2 / 4; }
+.div4 { grid-area: 1 / 4 / 2 / 5; }
+.div5 { grid-area: 1 / 5 / 2 / 6; }
+.div6 { grid-area: 1 / 6 / 2 / 7; }
+.div7 { grid-area: 1 / 7 / 2 / 8; }
+.div8 { grid-area: 1 / 8 / 2 / 9; }
+.div9 { grid-area: 1 / 9 / 2 / 10; }
+.div10 { grid-area: 1 / 10 / 2 / 11; }
+.div11 { grid-area: 1 / 11 / 2 / 12; }
+.div12 { grid-area: 1 / 12 / 2 / 13; }
+.div13 { grid-area: 4 / 12 / 5 / 13; }
+.div14 { grid-area: 4 / 11 / 5 / 12; }
+.div15 { grid-area: 4 / 10 / 5 / 11; }
+.div16 { grid-area: 4 / 9 / 5 / 10; }
+.div17 { grid-area: 5 / 7 / 6 / 8; }
+.div18 { grid-area: 5 / 6 / 6 / 7; }
+.div19 { grid-area: 5 / 5 / 6 / 6; }
+.div20 { grid-area: 5 / 4 / 6 / 5; }
+.div21 { grid-area: 5 / 3 / 6 / 4; }
+
+/*Parking 2*/
+.parking2parent {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+.div22 { grid-area: 1 / 1 / 2 / 2; }
+.div23 { grid-area: 1 / 2 / 2 / 3; }
+.div24 { grid-area: 1 / 3 / 2 / 4; }
+.div25 { grid-area: 1 / 4 / 2 / 5; }
+.div26 { grid-area: 1 / 5 / 2 / 6; }
+.div27 { grid-area: 1 / 6 / 2 / 7; }
+.div28 { grid-area: 1 / 7 / 2 / 8; }
+.div29 { grid-area: 5 / 11 / 6 / 12; }
+.div30 { grid-area: 5 / 10 / 6 / 11; }
+.div31 { grid-area: 5 / 9 / 6 / 10; }
+.div32 { grid-area: 5 / 8 / 6 / 9; }
+.div33 { grid-area: 5 / 7 / 6 / 8; }
+.div34 { grid-area: 5 / 6 / 6 / 7; }
+.div35 { grid-area: 5 / 5 / 6 / 6; }
+.div36 { grid-area: 5 / 4 / 6 / 5; }
+.div37 { grid-area: 5 / 3 / 6 / 4; }
+.div38 { grid-area: 5 / 2 / 6 / 3; }
+.div39 { grid-area: 5 / 1 / 6 / 2; }
+.div40 { grid-area: 3 / 2 / 4 / 3; }
+.div41 { grid-area: 3 / 4 / 4 / 5; }
+.div42 { grid-area: 3 / 6 / 4 / 7; }

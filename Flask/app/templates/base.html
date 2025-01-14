@@ -3,61 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi Aplicación{% endblock %}</title>
+    <title>{% block title %}FazBearPrak{% endblock %}</title>
 
-    <!-- Bootstrap CSS (opcional, si usas Bootstrap) -->
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-QTzDRv0Vh3jTqLOUc/iaCUaZHZKtIt2ykQWeDLIPi3dLxLkCUBcuh93KgjwCecQx" 
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     {% block head %}{% endblock %}
 </head>
 <body>
-    <!-- Barra de navegación -->
     <header>
-        <div>
-            <img id="imagelogo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
-        </div>
-
-        <div id="mainmenu">
             <div>
-                <a href="{{ url_for('main.reservas') }}">Reservas</a>
+                <img id="imagelogo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
             </div>
     
-            <div>
-                <a>Perfil</a>
+            <div id="mainmenu">    
+                <div>
+                    <a href="{{ url_for('main.perfil') }}">Perfil</a>
+                </div>
+        
+                <div>
+                    <a href="{{ url_for('main.index') }}">Parking</a>
+                </div>
+                <div>
+                    <a href="{{ url_for('auth.logout') }}">Tanca sessio</a>
+                </div>
             </div>
-    
-            <div>
-                <a>Parking</a>
-            </div>
-        </div>
     </header>
 
     <!-- Contenido principal -->
-    <main class="container mt-4">
+    <main>
         {% block content %}
-        <h1>Bienvenido a Mi Aplicación</h1>
+        
         {% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-dark text-light text-center">
-        <div class="container">
+    <footer>
+        <div>
             <span>&copy; {{ year }} Mi Aplicación. Todos los derechos reservados.</span>
         </div>
     </footer>
 
-    <!-- Bootstrap JS (opcional) -->
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-5P6Zec6m+QT4UdMR57SHjGhFkFpCvLRjBO+h2JDC9CMwCTyA8T4OIWlR3h5hOcKU" 
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
     {% block scripts %}{% endblock %}
 </body>
