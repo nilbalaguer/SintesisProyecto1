@@ -5,66 +5,69 @@ Mapa Parking
 {% endblock %}
 
 {% block content %}
-<h2>Parking</h2>
-<div class="d-flex justify-content-center" id="fondoParking">
-    <div class="parkings">
-        <div>
-            <div class="parking1parent">
-                <div class="div1">F </div>
-                <div class="div2">F </div>
-                <div class="div3">F </div>
-                <div class="div4">f </div>
-                <div class="div5">f </div>
-                <div class="div6">f </div>
-                <div class="div7">f </div>
-                <div class="div8">f </div>
-                <div class="div9">f </div>
-                <div class="div10">f </div>
-                <div class="div11">f </div>
-                <div class="div12">f </div>
-                <div class="div13">f </div>
-                <div class="div14">f </div>
-                <div class="div15">f </div>
-                <div class="div16">f </div>
-                <div class="div17">f </div>
-                <div class="div18">F </div>
-                <div class="div19">F </div>
-                <div class="div20">F </div>
-                <div class="div21">F </div>
+<div id="fondofondoparking">
+    <h2>Parking</h2>
+    <div class="d-flex justify-content-center" id="fondoParking">
+        <div class="parkings">
+            <div>
+                <div class="parking1parent">
+                    <div class="div1">F </div>
+                    <div class="div2">F </div>
+                    <div class="div3">F </div>
+                    <div class="div4">f </div>
+                    <div class="div5">f </div>
+                    <div class="div6">f </div>
+                    <div class="div7">f </div>
+                    <div class="div8">f </div>
+                    <div class="div9">f </div>
+                    <div class="div10">f </div>
+                    <div class="div11">f </div>
+                    <div class="div12">f </div>
+                    <div class="div13">f </div>
+                    <div class="div14">f </div>
+                    <div class="div15">f </div>
+                    <div class="div16">f </div>
+                    <div class="div17">f </div>
+                    <div class="div18">F </div>
+                    <div class="div19">F </div>
+                    <div class="div20">F </div>
+                    <div class="div21">F </div>
+                </div>
             </div>
-        </div>
-        <div>
-            <div class="parking2parent">
-                <div class="div22">F </div>
-                <div class="div23">F </div>
-                <div class="div24">f </div>
-                <div class="div25">f </div>
-                <div class="div26">f </div>
-                <div class="div27">f </div>
-                <div class="div28">f </div>
-                <div class="div29">f </div>
-                <div class="div30">f </div>
-                <div class="div31">f </div>
-                <div class="div32">f </div>
-                <div class="div33">f </div>
-                <div class="div34">f </div>
-                <div class="div35">f </div>
-                <div class="div36">f </div>
-                <div class="div37">f </div>
-                <div class="div38">f </div>
-                <div class="div39">F </div>
-                <div class="div40">F </div>
-                <div class="div41">F </div>
-                <div class="div42">F </div>
+            <div>
+                <div class="parking2parent">
+                    <div class="div22">F </div>
+                    <div class="div23">F </div>
+                    <div class="div24">f </div>
+                    <div class="div25">f </div>
+                    <div class="div26">f </div>
+                    <div class="div27">f </div>
+                    <div class="div28">f </div>
+                    <div class="div29">f </div>
+                    <div class="div30">f </div>
+                    <div class="div31">f </div>
+                    <div class="div32">f </div>
+                    <div class="div33">f </div>
+                    <div class="div34">f </div>
+                    <div class="div35">f </div>
+                    <div class="div36">f </div>
+                    <div class="div37">f </div>
+                    <div class="div38">f </div>
+                    <div class="div39">F </div>
+                    <div class="div40">F </div>
+                    <div class="div41">F </div>
+                    <div class="div42">F </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-around">
+        <div id="cuadrosinferiors" >
+            <h4 id="indicadorOcupacio">Percentatje ocupacio</h4>
+        </div>
+        <div><button id="botoReservarPlaca" class="boton-1"></button></div>
+        <div id="cuadrosinferiors"><img src="{{ url_for('static', filename='images/llegenda.webp') }}" alt="Legenda: Rogi = Ocupat, Groc = Reservat, Verd = Lliure"></div>
+    </div>
 </div>
-<div class="d-flex justify-content-around">
-    <div><h4>Percentatje ocupacio</h4></div>
-    <div><button id="botoReservarPlaca" class="boton-1"></button></div>
-    <div><h4>Actualitza</h4></div>
-</div>
-
 <script src="{{ url_for('static', filename='js/parking.js') }}"></script>
 {% endblock %}

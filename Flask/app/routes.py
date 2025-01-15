@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ReservaForm
 from .models import User
 from . import db
 
@@ -71,7 +71,19 @@ def logout():
 @main_bp.route('/reservas')
 @login_required
 def reservas():
-    return render_template('reservas.html')
+    form = ReservaForm()
+
+    if current_user.is_authenticated:
+        form.email.data = current_user.email
+
+    if form.validate_on_submit():
+        data_reserva = form.dataReserva.data
+        placa = form.placa.data
+        email = form.email.data
+
+        return f'Reservado para {email} en la plaça {placa} para el día {data_reserva}.'
+
+    return render_template('reservas.html', form=form)
 
 #Porta a la pagina de perfil
 @main_bp.route('/perfil')

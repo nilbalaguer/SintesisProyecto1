@@ -5,5 +5,32 @@ Reservas
 {% endblock %}
 
 {% block content %}
-<h1>Reservas</h1>
+<div id="fondoreserves">
+    <h2>Reserves</h2>
+    <div id="menureserves">
+        <div id="divCrearReserva">
+            <h3>Fes una reserva</h3>
+            <form id="reservaform" method="post">
+                <label>Data de reserva</label>
+                <br>
+                {{ form.dataReserva() }}
+                <br><br>
+                <label>Plaça</label>
+                <br>
+                {{ form.placa() }}
+                <br><br>
+                {{ form.submit(class="boton-1") }}
+                {{ form.hidden_tag() }}
+                {{ form.email() }}
+            </form>
+        </div>
+        <div id="divLlistaReserves">
+            <div>
+                <p>F</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/reserves.js') }}"></script>
 {% endblock %}

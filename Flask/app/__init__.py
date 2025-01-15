@@ -14,6 +14,8 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    login_manager.login_view = 'auth.login'
+
     # Registrar blueprints después de inicializar extensiones
     from .routes import main_bp
     from .routes import auth_bp

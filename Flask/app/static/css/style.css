@@ -91,6 +91,10 @@ footer {
 
 /*Pagina Parking*/
 
+#fondofondoparking {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.PNG");
+}
+
 #fondoParking {
     width: 100%;
 }
@@ -98,7 +102,6 @@ footer {
 .parkings {
     margin: 10px;
     border: 1px solid gray;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.PNG");
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -117,10 +120,10 @@ footer {
 
 .parking1parent div, .parking2parent div {
     transition: 400ms;
-    box-shadow: black 0px 0px 10px;
-    width: 50px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 5px;
+    width: 40px;
     height: 80px;
-    margin: 2px;
+    margin: 8px;
     cursor:pointer;
     border-radius: 50px;
     padding: 5px;
@@ -129,52 +132,24 @@ footer {
 
 .parking1parent div:hover , .parking2parent div:hover {
     transition: 400ms;
-    transform: scale(1.2); /* Hace el objeto un 20% más grande */
+    transform: scale(1.2);
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 15px;
     z-index: 10;
     color: white;
 }
 
 .selectedPlaca {
     transition: 800ms;
+    transform: translate(0%, -25%);
     z-index: 10;
     color: white;
-    border: 2px solid black;
-    animation: palpitacion 1s infinite ease-in-out;
-}
-
-@keyframes palpitacion {
-    0% {
-        transform: scale(1) translate(-0%, -0%);
-    }
-    50% {
-        transform: scale(1.2) translate(-0%, -25%);
-    }
-    100% {
-        transform: scale(1) translate(-0%, -0%);
-    }
 }
 
 .selectedButon {
     transition: 800ms;
-    transform: scale(2);
+    transform: scale(1.5);
     z-index: 10;
-    border: 2px solid black;
     color: white;
-    animation: palpitacionBoto 1s infinite ease-in-out;
-}
-
-@keyframes palpitacionBoto {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
 /*Parking 1*/
@@ -249,4 +224,64 @@ footer {
 
 .estat_ocupat {
     background-color: var(--colorestat2);
+}
+
+.tremolar {
+    animation: tremolar 0.5s ease-in-out;
+}
+
+@keyframes tremolar {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+#cuadrosinferiors {
+    height: 80px;
+    background-color: var(--background_menus);
+    padding: 10px;
+}
+
+#cuadrosinferiors img {
+    height: 100%;
+}
+
+/*Pagina Reserves*/
+#fondoreserves {
+    background-image: url('../images/fondoreserves.webp');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    height: 75vh;
+}
+
+#menureserves {
+    text-align: center;
+    background-color: var(--background_menus);
+    padding: 30px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+#divCrearReserva {
+    display: none;
+    margin: 20px;
+}
+
+#divLlistaReserves {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#divLlistaReserves div {
+    background-color: white;
+    min-width: 300px;
+    min-height: 100%;
 }
