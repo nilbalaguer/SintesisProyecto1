@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required
+from sqlalchemy import text
 from .forms import LoginForm, RegisterForm
 from .models import User
 from . import db
@@ -47,10 +48,10 @@ def register():
 
 
 #Mini API para JavaScript del parking
-@main_bp.route('/api/parking', methods=['GET'])
+@main_bp.route('/apiparking', methods=['GET'])
 def api_reservas():
     #Consulta directa a la bbdd
-    query = "SELECT id, id_usuari, estat FROM parking"
+    query = text("SELECT id, id_usuari, estat FROM parking")
     result = db.session.execute(query)
     
     data = [{'id': row[0], 'id_usuari': row[1], 'estat': row[2]} for row in result]
