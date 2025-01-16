@@ -58,6 +58,15 @@ def api_reservas():
     
     return jsonify(data)
 
+@main_bp.route('/apireserves', methods=['GET'])
+def api_reserves():
+    #Consula directa a la bbdd de les reserves actuals
+    query = text("SELECT id_parking, id_usuari, data FROM reserves")
+    result = db.session.execute(query)
+    
+    data = [{'id_parking': row[0], 'id_usuari': row[1], 'data': row[2]} for row in result]
+    
+    return jsonify(data)
 
 #Realitza el Logout de l'usuari
 @auth_bp.route('/logout')

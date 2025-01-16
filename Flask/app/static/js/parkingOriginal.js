@@ -1,36 +1,19 @@
 const botoReservarPlaca = document.getElementById("botoReservarPlaca");
 const indicadorOcupacio = document.getElementById("indicadorOcupacio");
-const DataReservaInput = document.getElementById("datareservainput");
 botoReservarPlaca.textContent = "Reservar";
 
-DataReservaInput.addEventListener("change", async function() {
+document.addEventListener("DOMContentLoaded", async function() {
     const parkingDivs = document.querySelectorAll(".parkings div[class^='div']");
     const parkingArray = Array.from(parkingDivs);
 
-    parkingArray.forEach((div) => {
-        div.classList.remove("estat_reservat");
-        div.classList.remove("estat_ocupat");
-
-        div.classList.add("estat_lliure");
-    })
-
-    let temps = DataReservaInput.value;
-
     //Fetch per obtindre dades del parking
-    fetch('/apireserves')
+    fetch('/apiparking')
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         let contadorlliures = 0;
 
         for (let i = 0; i < data.length; i++) {
-            if (data[i].data == temps) {
-                console.log(data[i].id_parking);
-                parkingArray[data[i].id_parking-1].classList.remove("estat_lliure");
-                parkingArray[data[i].id_parking-1].classList.add("estat_reservat");
-            }
-
-
-            /*
             if (data[i].estat == "lliure") {
                 parkingArray[i].classList.add("estat_lliure");
                 contadorlliures += 1;
@@ -39,7 +22,6 @@ DataReservaInput.addEventListener("change", async function() {
             } else if (data[i].estat == "ocupat"){
                 parkingArray[i].classList.add("estat_ocupat");
             }
-            */
             
         }
 
@@ -51,11 +33,9 @@ DataReservaInput.addEventListener("change", async function() {
         div.textContent = `P ${index + 1}`;
         div.addEventListener("click", () => {seleccionarPlaca(index, parkingArray)});
     });
-
-    cancelaSeleccio();
 });
 
-let seleccio = -1;
+let seleccio = 0;
 
 botoReservarPlaca.addEventListener("click", () => {enviarReserva(seleccio)});
 
@@ -75,13 +55,6 @@ function seleccionarPlaca(id, parking) {
             parking[id].classList.remove('tremolar');
         }, 500);
     }
-}
-
-function cancelaSeleccio(parking) {
-    parking.forEach((div) => {
-        div.classList.remove("selectedPlaca");
-        seleccio = -1;
-    })
 }
 
 function enviarReserva(id) {

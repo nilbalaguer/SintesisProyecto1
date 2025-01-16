@@ -35,6 +35,7 @@ header {
 
 #imagelogo {
     width: 110px;
+    margin-right: 20px;
 }
 
 footer {
@@ -92,16 +93,21 @@ footer {
 /*Pagina Parking*/
 
 #fondofondoparking {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.PNG");
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.webp");
 }
 
 #fondoParking {
     width: 100%;
 }
 
+#titulparking {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
 .parkings {
     margin: 10px;
-    border: 1px solid gray;
     background-position: center;
     background-size: cover;
     width: 100%;
