@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, flash,
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
 from .forms import LoginForm, RegisterForm, ReservaForm
-from .models import User
+from .models import User, Reserva
 from . import db
 
 auth_bp = Blueprint('auth', __name__)
@@ -77,20 +77,23 @@ def logout():
     return redirect(url_for('auth.login'))
 
 #Porta a la pagina de reserves
-@main_bp.route('/reservas')
+@main_bp.route('/reservas', methods=['GET', 'POST'])
 @login_required
 def reservas():
     form = ReservaForm()
 
     if current_user.is_authenticated:
-        form.email.data = current_user.email
+        form.id_usuari.data = current_user.id
 
     if form.validate_on_submit():
         data_reserva = form.dataReserva.data
         placa = form.placa.data
-        email = form.email.data
+        id_usuari = form.id_usuari.data
 
-        return f'Reservado para {email} en la plaça {placa} para el día {data_reserva}.'
+        nova_reserva = Reserva(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
+        db.session.add(nova_reserva)
+        db.session.commit()
+        return redirect(url_for('main.index'))
 
     return render_template('reservas.html', form=form)
 

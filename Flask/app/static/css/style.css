@@ -100,12 +100,6 @@ footer {
     width: 100%;
 }
 
-#titulparking {
-    text-align: center;
-    padding: 20px;
-    color: white;
-}
-
 .parkings {
     margin: 10px;
     background-position: center;
@@ -252,6 +246,23 @@ footer {
 
 #cuadrosinferiors img {
     height: 100%;
+}
+
+#divselectordataparking {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#divselectordataparking div {
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+#datareservainput {
+    border: none;
+    cursor: pointer;
 }
 
 /*Pagina Reserves*/

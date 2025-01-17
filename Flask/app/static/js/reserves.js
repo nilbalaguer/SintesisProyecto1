@@ -8,11 +8,15 @@ function getURLParameter(name) {
 
 
 const id = getURLParameter('id');
+const date = getURLParameter('date');
 
 
 if (id != null) {
     document.getElementById("divCrearReserva").style.display = 'block';
 
-    inputs[0].value = new Date();
+    inputs[0].value = date;
     inputs[1].value = id;
 }
+
+// Eliminar els parametres de la url
+history.pushState({}, document.title, window.location.pathname);

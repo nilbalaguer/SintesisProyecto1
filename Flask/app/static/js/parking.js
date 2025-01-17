@@ -3,9 +3,28 @@ const indicadorOcupacio = document.getElementById("indicadorOcupacio");
 const DataReservaInput = document.getElementById("datareservainput");
 botoReservarPlaca.textContent = "Reservar";
 
+//Data actual per ficar el minim en el formulari
+const hoy = new Date();
+const yyyy = hoy.getFullYear();
+const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+const dd = String(hoy.getDate()).padStart(2, '0');
+const dataActual = `${yyyy}-${mm}-${dd}`;
+DataReservaInput.setAttribute('min', dataActual);
+
+//Boton de dia millorat
+DataReservaInput.addEventListener("keydown", function (event) {
+    event.preventDefault();
+});
+
+DataReservaInput.addEventListener("click", function () {
+    this.showPicker();
+});
+
 DataReservaInput.addEventListener("change", async function() {
     const parkingDivs = document.querySelectorAll(".parkings div[class^='div']");
     const parkingArray = Array.from(parkingDivs);
+
+    cancelaSeleccio(parkingArray);
 
     parkingArray.forEach((div) => {
         div.classList.remove("estat_reservat");
@@ -20,44 +39,30 @@ DataReservaInput.addEventListener("change", async function() {
     fetch('/apireserves')
     .then(response => response.json())
     .then(data => {
-        let contadorlliures = 0;
+        let contadorlliures = 42;
 
         for (let i = 0; i < data.length; i++) {
             if (data[i].data == temps) {
-                console.log(data[i].id_parking);
                 parkingArray[data[i].id_parking-1].classList.remove("estat_lliure");
                 parkingArray[data[i].id_parking-1].classList.add("estat_reservat");
+                contadorlliures -= 1;
             }
-
-
-            /*
-            if (data[i].estat == "lliure") {
-                parkingArray[i].classList.add("estat_lliure");
-                contadorlliures += 1;
-            } else if (data[i].estat == "reservat") {
-                parkingArray[i].classList.add("estat_reservat");
-            } else if (data[i].estat == "ocupat"){
-                parkingArray[i].classList.add("estat_ocupat");
-            }
-            */
             
         }
 
-        indicadorOcupacio.innerHTML = "Ocupacio: " + Math.round(contadorlliures*100/42) + " %<br>Plaçes lliures: " + contadorlliures;
+        indicadorOcupacio.innerHTML = "Ocupacio: " + Math.round(((42-contadorlliures)/42)*100) + " %<br>Plaçes lliures: " + contadorlliures;
     })
     .catch(error => console.error('Error al obtindre les plaçes del parking:', error));
 
     parkingArray.forEach((div, index) => {
-        div.textContent = `P ${index + 1}`;
+        div.textContent = `${index + 1}`;
         div.addEventListener("click", () => {seleccionarPlaca(index, parkingArray)});
     });
-
-    cancelaSeleccio();
 });
 
 let seleccio = -1;
 
-botoReservarPlaca.addEventListener("click", () => {enviarReserva(seleccio)});
+botoReservarPlaca.addEventListener("click", () => {enviarReserva(seleccio, DataReservaInput.value)});
 
 function seleccionarPlaca(id, parking) {
     seleccio = id;
@@ -80,10 +85,14 @@ function seleccionarPlaca(id, parking) {
 function cancelaSeleccio(parking) {
     parking.forEach((div) => {
         div.classList.remove("selectedPlaca");
-        seleccio = -1;
     })
+
+    seleccio = -1;
+
+    botoReservarPlaca.textContent = "Reserva";
+    botoReservarPlaca.classList.remove("selectedButon");
 }
 
-function enviarReserva(id) {
-    window.location.href = `/reservas?id=${id+1}`;
+function enviarReserva(id, date) {
+    window.location.href = `/reservas?id=${id+1}&date=${date}`;
 }
