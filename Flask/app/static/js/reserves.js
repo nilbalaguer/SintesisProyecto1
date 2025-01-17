@@ -17,13 +17,8 @@ if (id != null) {
     inputs[2].value = date;
     inputs[3].value = id;
 
-    inputs[2].addEventListener("keydown", function (event) {
-        event.preventDefault();
-    });
-    
-    inputs[3].addEventListener("keydown", function (event) {
-        event.preventDefault();
-    });
+    inputs[2].readOnly = true;
+    inputs[3].readOnly = true;
 }
 
 // Eliminar els parametres de la url
