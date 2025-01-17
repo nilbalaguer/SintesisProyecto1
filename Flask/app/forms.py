@@ -14,7 +14,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Registrar-se')
 
 class ReservaForm(FlaskForm):
-    dataReserva = StringField('Data de Reserva', validators=[DataRequired(), Disabled()])
-    placa = IntegerField('Plaça', validators=[DataRequired(), Disabled()])
-    id_usuari = HiddenField('id_usuari', validators=[DataRequired()])
+    dataReserva = StringField('Data de Reserva')
+    placa = IntegerField('Plaça')
+    id_usuari = HiddenField('id_usuari')
     submit = SubmitField('Nova Reserva')

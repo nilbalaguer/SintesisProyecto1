@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, flash,
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
 from .forms import LoginForm, RegisterForm, ReservaForm
-from .models import User, Reserva
+from .models import User, Reserves
 from . import db
 
 auth_bp = Blueprint('auth', __name__)
@@ -82,15 +82,16 @@ def logout():
 def reservas():
     form = ReservaForm()
 
-    if current_user.is_authenticated:
-        form.id_usuari.data = current_user.id
+    print (current_user.id)
+
+    form.id_usuari.data = current_user.id
 
     if form.validate_on_submit():
         data_reserva = form.dataReserva.data
         placa = form.placa.data
         id_usuari = form.id_usuari.data
 
-        nova_reserva = Reserva(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
+        nova_reserva = Reserves(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
         db.session.add(nova_reserva)
         db.session.commit()
         return redirect(url_for('main.index'))

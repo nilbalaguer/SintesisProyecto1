@@ -14,8 +14,16 @@ const date = getURLParameter('date');
 if (id != null) {
     document.getElementById("divCrearReserva").style.display = 'block';
 
-    inputs[0].value = date;
-    inputs[1].value = id;
+    inputs[2].value = date;
+    inputs[3].value = id;
+
+    inputs[2].addEventListener("keydown", function (event) {
+        event.preventDefault();
+    });
+    
+    inputs[3].addEventListener("keydown", function (event) {
+        event.preventDefault();
+    });
 }
 
 // Eliminar els parametres de la url
