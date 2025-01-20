@@ -18,3 +18,8 @@ class ReservaForm(FlaskForm):
     placa = IntegerField('Plaça')
     id_usuari = HiddenField('id_usuari')
     submit = SubmitField('Nova Reserva')
+
+class CancelaReservaForm(FlaskForm):
+    idReserva = HiddenField('id', validators=[DataRequired()])
+    id_usuari = HiddenField('id_usuari', validators=[DataRequired()])
+    submit = SubmitField('Cancelar Reserva')

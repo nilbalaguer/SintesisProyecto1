@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
-from .forms import LoginForm, RegisterForm, ReservaForm
+from .forms import LoginForm, RegisterForm, ReservaForm, CancelaReservaForm
 from .models import User, Reserves
 from . import db
 
@@ -46,26 +46,24 @@ def register():
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form)
 
-
-#Mini API para JavaScript del parking
-@main_bp.route('/apiparking', methods=['GET'])
-def api_reservas():
-    #Consulta directa a la bbdd
-    query = text("SELECT id, id_usuari, estat FROM parking")
-    result = db.session.execute(query)
-    
-    data = [{'id': row[0], 'id_usuari': row[1], 'estat': row[2]} for row in result]
-    
-    return jsonify(data)
-
 @main_bp.route('/apireserves', methods=['GET'])
 def api_reserves():
     #Consula directa a la bbdd de les reserves actuals
-    query = text("SELECT id_parking, id_usuari, data FROM reserves")
+    query = text("SELECT id_parking, id_usuari, data, id FROM reserves")
     result = db.session.execute(query)
     
-    data = [{'id_parking': row[0], 'id_usuari': row[1], 'data': row[2]} for row in result]
+    data = [{'id_parking': row[0], 'id_usuari': row[1], 'data': row[2], 'id':row[3]} for row in result]
     
+    return jsonify(data)
+
+#Obtindre ocupacions actuals del parking
+@main_bp.route("/apiocupacions", methods=['GET'])
+def api_ocupacions():
+    query = text("SELECT placa FROM ocupacions")
+    result = db.session.execute(query)
+
+    data = [{'placa': row[0]} for row in result]
+
     return jsonify(data)
 
 #Realitza el Logout de l'usuari
@@ -82,7 +80,7 @@ def logout():
 def reservas():
     form = ReservaForm()
 
-    print (current_user.id)
+    usuari_id = current_user.id
 
     form.id_usuari.data = current_user.id
 
@@ -96,10 +94,27 @@ def reservas():
         db.session.commit()
         return redirect(url_for('main.index'))
 
-    return render_template('reservas.html', form=form)
+    return render_template('reservas.html', form=form, usuari_id=usuari_id)
 
 #Porta a la pagina de perfil
 @main_bp.route('/perfil')
 @login_required
 def perfil():
     return render_template('perfil.html')
+
+#Porta a la pagina de cancelacio de reserva
+@main_bp.route("/cancelarReserva")
+@login_required
+def cancelarReserva():
+    form = CancelaReservaForm()
+
+    form.idReserva.data = request.args.get('id')
+    form.id_usuari.data = request.args.get('user') 
+
+    if form.validate_on_submit() and (form.id_usuari.data == current_user.id):
+        cancelareserva = Reserves(id_parking=form.idReserva.data)
+        db.session.remove(cancelareserva)
+        db.session.commit()
+        return redirect(url_for('main.perfil'))
+
+    return render_template('cancelarReserva.html', usuari_id=current_user.id, form=form)

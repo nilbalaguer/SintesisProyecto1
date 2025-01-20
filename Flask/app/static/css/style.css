@@ -299,3 +299,10 @@ footer {
     min-width: 300px;
     min-height: 100%;
 }
+
+#llistareserves p {
+    border: 1px solid gray;
+    margin: 4px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}

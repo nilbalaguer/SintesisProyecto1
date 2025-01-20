@@ -20,6 +20,9 @@ DataReservaInput.addEventListener("click", function () {
     this.showPicker();
 });
 
+//Detectar quan canvii el input de la data
+alert("Introdueix la data de reserva");
+
 DataReservaInput.addEventListener("change", async function() {
     const parkingDivs = document.querySelectorAll(".parkings div[class^='div']");
     const parkingArray = Array.from(parkingDivs);
@@ -53,6 +56,19 @@ DataReservaInput.addEventListener("change", async function() {
         indicadorOcupacio.innerHTML = "Ocupacio: " + Math.round(((42-contadorlliures)/42)*100) + " %<br>Plaçes lliures: " + contadorlliures;
     })
     .catch(error => console.error('Error al obtindre les plaçes del parking:', error));
+
+    if (temps == dataActual) {
+        fetch('/apiocupacions')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                parkingArray[data[i].placa-1].classList.remove("estat_lliure");
+                parkingArray[data[i].placa-1].classList.remove("estat_reservat");
+                parkingArray[data[i].placa-1].classList.add("estat_ocupat");
+            }
+        })
+        .catch(error => console.error('Error al obtindre les plaçes del parking: ', error));
+    }
 
     parkingArray.forEach((div, index) => {
         div.textContent = `${index + 1}`;
