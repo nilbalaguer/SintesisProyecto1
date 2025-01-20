@@ -306,3 +306,9 @@ footer {
     margin-top: 9px;
     margin-bottom: 9px;
 }
+
+
+/*Pagina de cancelacio de reserva*/
+#cancelaform {
+    max-width: 300px;
+}

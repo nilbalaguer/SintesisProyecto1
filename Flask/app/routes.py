@@ -92,7 +92,7 @@ def reservas():
         nova_reserva = Reserves(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
         db.session.add(nova_reserva)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.reservas'))
 
     return render_template('reservas.html', form=form, usuari_id=usuari_id)
 
@@ -103,7 +103,7 @@ def perfil():
     return render_template('perfil.html')
 
 #Porta a la pagina de cancelacio de reserva
-@main_bp.route("/cancelarReserva")
+@main_bp.route("/cancelarReserva", methods=['GET', 'POST', 'DELETE'])
 @login_required
 def cancelarReserva():
     form = CancelaReservaForm()
@@ -111,10 +111,20 @@ def cancelarReserva():
     form.idReserva.data = request.args.get('id')
     form.id_usuari.data = request.args.get('user') 
 
-    if form.validate_on_submit() and (form.id_usuari.data == current_user.id):
-        cancelareserva = Reserves(id_parking=form.idReserva.data)
-        db.session.remove(cancelareserva)
-        db.session.commit()
-        return redirect(url_for('main.perfil'))
+    flash(str(form.id_usuari.data) + " " + str(current_user.id))
+
+    # Validación del formulari
+    if form.validate_on_submit():
+        cancelareserva = form.idReserva.data
+        reserva = Reserves.query.filter_by(id=cancelareserva).first()
+
+        if reserva and reserva.id_usuari == current_user.id:
+            db.session.delete(reserva)
+            db.session.commit()
+            flash("Reserva eliminada correctament.")
+        else:
+            flash("No s'ha trobat la reserva")
+
+        return redirect(url_for('main.reservas'))
 
     return render_template('cancelarReserva.html', usuari_id=current_user.id, form=form)

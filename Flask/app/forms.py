@@ -20,6 +20,6 @@ class ReservaForm(FlaskForm):
     submit = SubmitField('Nova Reserva')
 
 class CancelaReservaForm(FlaskForm):
-    idReserva = HiddenField('id', validators=[DataRequired()])
-    id_usuari = HiddenField('id_usuari', validators=[DataRequired()])
+    idReserva = HiddenField('id')
+    id_usuari = HiddenField('id_usuari')
     submit = SubmitField('Cancelar Reserva')
