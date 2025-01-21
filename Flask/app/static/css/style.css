@@ -103,6 +103,10 @@ footer {
 
 /*Pagina Parking*/
 
+#divinferiorparking {
+    margin-top: 30px;
+}
+
 #fondofondoparking {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/fondoparking.webp");
 }
