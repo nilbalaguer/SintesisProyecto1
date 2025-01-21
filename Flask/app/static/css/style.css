@@ -33,6 +33,17 @@ header {
     padding: 20px;
 }
 
+#mainmenu a {
+    transition: 300ms;
+    text-decoration: none;
+    color: black;
+}
+
+#mainmenu a:hover {
+    transition: 300ms;
+    color: var(--button_color2);
+}
+
 #imagelogo {
     width: 110px;
     margin-right: 20px;
@@ -265,6 +276,8 @@ footer {
 /*Pagina Reserves*/
 #fondoreserves {
     background-image: url('../images/fondoreserves.webp');
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -311,4 +324,25 @@ footer {
 /*Pagina de cancelacio de reserva*/
 #cancelaform {
     max-width: 300px;
+}
+
+
+/*Pagina de perfil*/
+#fondoperfil {
+    background-image: url('../images/fondoreserves.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 75vh;
+    gap: 30px;
+    text-align: center;
+}
+
+#fondoperfil div {
+    background-color: var(--background_menus);
+    padding: 30px;
+    border-radius: 40px;
 }

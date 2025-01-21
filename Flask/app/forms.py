@@ -11,6 +11,7 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email(), Length(max=32)])
     username = StringField('Nom d\'usuari', validators=[DataRequired(), Length(max=32)])
     password = PasswordField('Contrasenya', validators=[DataRequired(), Length(min=4)])
+    plate = StringField('Matricula', validators=[DataRequired(), Length(max=7)])
     submit = SubmitField('Registrar-se')
 
 class ReservaForm(FlaskForm):
@@ -23,3 +24,6 @@ class CancelaReservaForm(FlaskForm):
     idReserva = HiddenField('id')
     id_usuari = HiddenField('id_usuari')
     submit = SubmitField('Cancelar Reserva')
+
+#class PerfilForm():
+    

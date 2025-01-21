@@ -38,7 +38,7 @@ def register():
             flash('Email address already exists.', 'danger')
             return redirect(url_for('auth.register'))
         
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data, plate=form.plate.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -100,7 +100,12 @@ def reservas():
 @main_bp.route('/perfil')
 @login_required
 def perfil():
-    return render_template('perfil.html')
+
+    username = current_user.username
+    name = current_user.email
+    plate = current_user.plate
+
+    return render_template('perfil.html', username = username, name=name, plate=plate)
 
 #Porta a la pagina de cancelacio de reserva
 @main_bp.route("/cancelarReserva", methods=['GET', 'POST', 'DELETE'])

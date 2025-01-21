@@ -5,7 +5,15 @@ Perfil
 {% endblock %}
 
 {% block content %}
-<h1>Perfil</h1>
-
-<a href="{{ url_for('main.reservas') }}">Reserves</a>
+<div id="fondoperfil">
+    <div>
+        <h3>{{ username }}</h3>
+        <p>{{ name }}</p>
+        <h4>Matricula</h4>
+        <input value="{{ plate }}">
+    </div>
+    <div>
+        <h3>Notificacions</h3>
+    </div>
+</div>
 {% endblock %}

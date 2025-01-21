@@ -20,9 +20,6 @@ DataReservaInput.addEventListener("click", function () {
     this.showPicker();
 });
 
-//Detectar quan canvii el input de la data
-alert("Introdueix la data de reserva");
-
 DataReservaInput.addEventListener("change", async function() {
     const parkingDivs = document.querySelectorAll(".parkings div[class^='div']");
     const parkingArray = Array.from(parkingDivs);
