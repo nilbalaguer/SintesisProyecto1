@@ -10,10 +10,14 @@ Perfil
         <h3>{{ username }}</h3>
         <p>{{ name }}</p>
         <h4>Matricula</h4>
-        <input value="{{ plate }}">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.plate(class="form-control") }}
+            {{ form.submit(class="btn btn-primary boton-1") }}
+        </form>
     </div>
     <div>
-        <h3>Notificacions</h3>
+        <h3>Notificaciones</h3>
     </div>
 </div>
 {% endblock %}

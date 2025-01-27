@@ -25,5 +25,6 @@ class CancelaReservaForm(FlaskForm):
     id_usuari = HiddenField('id_usuari')
     submit = SubmitField('Cancelar Reserva')
 
-#class PerfilForm():
-    
+class PerfilForm(FlaskForm):
+    plate = StringField('Matricula', validators=[DataRequired(), Length(max=7)])
+    submit = SubmitField('Aplicar')

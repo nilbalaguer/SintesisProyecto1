@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
-from .forms import LoginForm, RegisterForm, ReservaForm, CancelaReservaForm
+from .forms import LoginForm, RegisterForm, ReservaForm, CancelaReservaForm, PerfilForm
 from .models import User, Reserves
 from . import db
 
@@ -97,15 +97,36 @@ def reservas():
     return render_template('reservas.html', form=form, usuari_id=usuari_id)
 
 #Porta a la pagina de perfil
-@main_bp.route('/perfil')
+@main_bp.route('/perfil', methods=['GET', 'POST'])
 @login_required
 def perfil():
+    form = PerfilForm()
 
+    id_usuario = current_user.id
     username = current_user.username
     name = current_user.email
     plate = current_user.plate
 
-    return render_template('perfil.html', username = username, name=name, plate=plate)
+    if not form.is_submitted():
+        form.plate.data = plate
+
+    if form.validate_on_submit():
+        plate = form.plate.data
+
+        usuario = User.query.get(id_usuario)
+        if usuario:
+            usuario.plate = plate
+            db.session.commit()
+
+        return redirect(url_for('main.perfil'))
+
+    return render_template(
+        'perfil.html',
+        username=username,
+        name=name,
+        plate=plate,
+        form=form
+    )
 
 #Porta a la pagina de cancelacio de reserva
 @main_bp.route("/cancelarReserva", methods=['GET', 'POST', 'DELETE'])
