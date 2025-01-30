@@ -1,3 +1,4 @@
+import datetime
 from flask import Blueprint, jsonify, render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
@@ -154,3 +155,35 @@ def cancelarReserva():
         return redirect(url_for('main.reservas'))
 
     return render_template('cancelarReserva.html', usuari_id=current_user.id, form=form)
+
+
+#API per a el sensor de porta, si retorna negative es que no hi ha reserva o matricula registrada, si torna positive es que hi existeix una reserva
+@main_bp.route("/api/checkMatricula", methods=['POST'])
+def checkMatricula():
+    data = request.get_json()
+    matricula = data.get('matricula')
+
+    fecha_actual = datetime.date.today()
+
+    if not matricula:
+        return jsonify({"check": "negative",
+                        "message": "Error al llegir matricula"}), 200
+
+    query = text("SELECT id FROM user WHERE plate = :matricula")
+    result = db.session.execute(query, {'matricula': matricula})
+
+    if result.rowcount == 0:
+        return jsonify({"check": "negative",
+                        "message": "Matricula o Usuari no trobat"}), 200
+
+    user_id = result.fetchone().id
+
+    query2 = text("SELECT id_parking FROM reserves WHERE id_usuari = :id_usuari AND data = :fecha")
+    result2 = db.session.execute(query2, {'id_usuari': user_id, 'fecha': fecha_actual})
+
+    if result2.rowcount == 0:
+        return jsonify({"check": "negative",
+                        "message":"Ninguna reserva trobada, Si us plau reservi abans d'entrar"})
+
+    return jsonify({"check": "positive",
+                    "message":"Reserva Trobada, Obrin Porta..."})
