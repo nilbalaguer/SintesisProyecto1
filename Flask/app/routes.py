@@ -202,20 +202,26 @@ def ocupar():
 
     #Afegir una ocupacio a la BBDD
     if (accio == "ocupar"):
-        nova_ocupacio = Ocupacions(placa=placa)
-        db.session.add(nova_ocupacio)
-        db.session.commit()
-        return jsonify({"message": "Ocupat",
-                        "placa": placa})
+        intentarocupar = Ocupacions.query.filter_by(placa=placa).first()
+        if intentarocupar == None:
+            nova_ocupacio = Ocupacions(placa=placa)
+            db.session.add(nova_ocupacio)
+            db.session.commit()
+            return jsonify({"message": "Ocupat",
+                            "placa": placa}), 200
+        else:
+            return jsonify({"message": "Error: Aquesta plaça ja esta ocupada"}), 400
     
     #Eliminar una ocupacio de la BBDD
     elif (accio == "lliurar"):
         eliminar_ocupacio = Ocupacions.query.filter_by(placa=placa).first()
-
-        db.session.delete(eliminar_ocupacio)
-        db.session.commit()
-        return jsonify({"message": "Lliurat",
-                        "placa": placa})
+        try:
+            db.session.delete(eliminar_ocupacio)
+            db.session.commit()
+            return jsonify({"message": "Lliurat",
+                            "placa": placa}), 200
+        except:
+            return jsonify({"message": "Error: Aquesta ocupacio no existeix"}), 400
     
     else:
-        return jsonify({"message": "Error"})
+        return jsonify({"message": "Error"}), 418
