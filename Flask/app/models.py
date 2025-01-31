@@ -20,3 +20,7 @@ class Reserves(db.Model):
     id_parking = db.Column(db.Integer, nullable=False)
     id_usuari = db.Column(db.Integer, nullable=False)
     data = db.Column(db.String(50), nullable=False)
+
+class Ocupacions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    placa = db.Column(db.Integer, nullable=False)

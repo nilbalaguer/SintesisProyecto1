@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, flash,
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
 from .forms import LoginForm, RegisterForm, ReservaForm, CancelaReservaForm, PerfilForm
-from .models import User, Reserves
+from .models import User, Reserves, Ocupacions
 from . import db
 
 auth_bp = Blueprint('auth', __name__)
@@ -90,10 +90,14 @@ def reservas():
         placa = form.placa.data
         id_usuari = form.id_usuari.data
 
-        nova_reserva = Reserves(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
-        db.session.add(nova_reserva)
-        db.session.commit()
-        return redirect(url_for('main.reservas'))
+        result = Reserves.query.filter_by(id_parking=placa, data=data_reserva).first()
+        if result == None:
+            nova_reserva = Reserves(id_parking=placa, id_usuari=id_usuari, data=data_reserva)
+            db.session.add(nova_reserva)
+            db.session.commit()
+            return redirect(url_for('main.reservas'))
+        else:
+            flash("Error al conseguir reservar, la plaça ja esta ocupada")
 
     return render_template('reservas.html', form=form, usuari_id=usuari_id)
 
@@ -187,3 +191,31 @@ def checkMatricula():
 
     return jsonify({"check": "positive",
                     "message":"Reserva Trobada, Obrin Porta..."})
+
+
+#API per ocupar plaçes, aquesta comanda sera operada per els sensors de cada plaça
+@main_bp.route("/api/ocupar", methods=['POST'])
+def ocupar():
+    data = request.get_json()
+    accio = data.get('accio')
+    placa = data.get('placa')
+
+    #Afegir una ocupacio a la BBDD
+    if (accio == "ocupar"):
+        nova_ocupacio = Ocupacions(placa=placa)
+        db.session.add(nova_ocupacio)
+        db.session.commit()
+        return jsonify({"message": "Ocupat",
+                        "placa": placa})
+    
+    #Eliminar una ocupacio de la BBDD
+    elif (accio == "lliurar"):
+        eliminar_ocupacio = Ocupacions.query.filter_by(placa=placa).first()
+
+        db.session.delete(eliminar_ocupacio)
+        db.session.commit()
+        return jsonify({"message": "Lliurat",
+                        "placa": placa})
+    
+    else:
+        return jsonify({"message": "Error"})
