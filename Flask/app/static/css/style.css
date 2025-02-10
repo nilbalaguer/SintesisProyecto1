@@ -328,6 +328,28 @@ footer {
     max-width: 300px;
 }
 
+#fondocancela {
+    display: flex;
+    justify-content: center;
+    background-image: url("../images/fondoparking.webp");
+}
+
+#fondocancela div {
+    background-color: var(--background_menus);
+    padding: 30px;
+    margin: 200px;
+    border-radius: 20px;
+}
+
+#fondocancela input {
+    animation: tremolar 5s infinite;
+    transform-origin: center;
+}
+
+@keyframes tremolar {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(0deg) rotateY(360deg); }
+}
 
 /*Pagina de perfil*/
 #fondoperfil {

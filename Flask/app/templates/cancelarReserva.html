@@ -5,13 +5,15 @@ Mapa Parking
 {% endblock %}
 
 {% block content %}
-<div>
-    <form id="cancelaform" method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.idReserva() }}
-        {{ form.id_usuari() }}
-        {{ form.submit(class="boton-1") }}
-    </form>
+<div id="fondocancela">
+    <div>
+        <form id="cancelaform" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.idReserva() }}
+            {{ form.id_usuari() }}
+            {{ form.submit(class="boton-1") }}
+        </form>
+    </div>
 </div>
 <script src='{{ url_for("static", filename="js/cancelarReserva.js") }}'></script>
 {% endblock %}
