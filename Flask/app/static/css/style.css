@@ -342,11 +342,11 @@ footer {
 }
 
 #fondocancela input {
-    animation: tremolar 5s infinite;
+    animation: giratorio 5s infinite;
     transform-origin: center;
 }
 
-@keyframes tremolar {
+@keyframes giratorio {
     0% { transform: rotateX(0deg) rotateY(0deg); }
     100% { transform: rotateX(0deg) rotateY(360deg); }
 }

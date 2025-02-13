@@ -24,3 +24,8 @@ class Reserves(db.Model):
 class Ocupacions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     placa = db.Column(db.Integer, nullable=False)
+
+class ParkingLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plate = db.Column(db.String(7), nullable=False)
+    accio = db.Column(db.String(50), nullable = False)

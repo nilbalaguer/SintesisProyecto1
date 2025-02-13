@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, render_template, redirect, url_for, flash,
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import text
 from .forms import LoginForm, RegisterForm, ReservaForm, CancelaReservaForm, PerfilForm
-from .models import User, Reserves, Ocupacions
+from .models import User, Reserves, Ocupacions, ParkingLog
 from . import db
 
 auth_bp = Blueprint('auth', __name__)
@@ -166,6 +166,7 @@ def cancelarReserva():
 def checkMatricula():
     data = request.get_json()
     matricula = data.get('matricula')
+    accio = data.get('accio')
 
     fecha_actual = datetime.date.today()
 
@@ -188,6 +189,17 @@ def checkMatricula():
     if result2.rowcount == 0:
         return jsonify({"check": "negative",
                         "message":"Ninguna reserva trobada, Si us plau reservi abans d'entrar"})
+
+    now = datetime.datetime.now()
+
+    hora = now.hour
+    minuto = now.minute
+
+    hora_actual = str(now.day)+":"+str(now.month)+":"+str(now.year)+"T"+str(hora)+":"+str(minuto)
+
+    nou_registre = ParkingLog(plate=matricula, accio=accio+","+str(hora_actual))
+    db.session.add(nou_registre)
+    db.session.commit()
 
     return jsonify({"check": "positive",
                     "message":"Reserva Trobada, Obrin Porta..."})
@@ -225,3 +237,14 @@ def ocupar():
     
     else:
         return jsonify({"message": "Error"}), 418
+
+
+
+#Tuto
+@main_bp.route('/api/entrada', methods=['POST'])
+def entrada():
+    data = request.get_json(force=True)
+
+    
+
+    return data
