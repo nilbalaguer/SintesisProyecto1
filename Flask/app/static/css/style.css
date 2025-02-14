@@ -237,15 +237,16 @@ footer {
 }
 
 .tremolar {
+    transition: 300ms;
     animation: tremolar 0.5s ease-in-out;
 }
 
 @keyframes tremolar {
-    0% { transform: rotate(0deg); }
+    0% { transform: rotate(0deg); transform: scale(1.2); }
     25% { transform: rotate(10deg); }
-    50% { transform: rotate(-10deg); }
+    50% { transform: rotate(-10deg); transform: scale(1.0); }
     75% { transform: rotate(10deg); }
-    100% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); transform: scale(1.2); }
 }
 
 #cuadrosinferiors {
