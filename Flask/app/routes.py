@@ -168,6 +168,8 @@ def checkMatricula():
     matricula = data.get('matricula')
     accio = data.get('accio')
 
+    print(str(accio)+str(matricula))
+
     fecha_actual = datetime.date.today()
 
     if not matricula:
@@ -241,10 +243,10 @@ def ocupar():
 
 
 #Tuto
-@main_bp.route('/api/entrada', methods=['POST'])
-def entrada():
-    data = request.get_json(force=True)
+# @main_bp.route('/api/entrada', methods=['POST'])
+# def entrada():
+#     data = request.get_json(force=True)
 
     
 
-    return data
+#     return data
